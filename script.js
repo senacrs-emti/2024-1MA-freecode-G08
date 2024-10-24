@@ -1,10 +1,7 @@
 const countries = [
-    // Américas 
     { name: "Brasil", silhouette: "https://th.bing.com/th/id/OIP.2kLWjnxqROfkhvMLjzfHaAAAAA?rs=1&pid=ImgDetMain" },
     { name: "Argentina", silhouette: "https://img.freepik.com/premium-vector/argentina-map-silhouette-isolated-white-background_650065-142.jpg?w=2000" },
     { name: "Canadá", silhouette: "https://th.bing.com/th/id/OIP.fTcNIpjkAPU0sictIM7v0wHaHa?w=800&h=800&rs=1&pid=ImgDetMain" },
-    
-    // Europa
     { name: "França", silhouette: "https://img.freepik.com/vector-premium/mapa-francia-sobre-fondo-blanco-ilustracion-vectorial_511393-3014.jpg?w=2000" },
     { name: "Alemanha", silhouette: "https://th.bing.com/th/id/OIP.EpYgYYJZDFM2SB2O1e4DAgHaFj?rs=1&pid=ImgDetMain" },
     { name: "Espanha", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSun9R_VHvHY90m7tld2ekEdMcbiAN4vB6fsw&s" },
@@ -19,15 +16,20 @@ const countries = [
     { name: "República Tcheca", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9C4SXRu9bR2VklBTq-uUXlyNA3vMw367Cng&s" },
     { name: "Hungria", silhouette: "https://img.freepik.com/vetores-premium/silhueta-preta-do-mapa-geografico-do-pais-da-hungria-facil-de-colorir_514344-1376.jpg" },
     { name: "Polônia", silhouette: "https://cdn-icons-png.flaticon.com/512/5866/5866581.png" },
-
-    // Ásia
     { name: "Japão", silhouette: "https://static.vecteezy.com/ti/vetor-gratis/p1/3127394-japan-map-silhouette-vector-illustration-sketch-vetor.jpg" },
     { name: "Índia", silhouette: "https://img.freepik.com/vetores-premium/mapa-da-silhueta-da-india-isolado-no-fundo-branco_650065-132.jpg" },
 ];
 
+const historicalFigures = [
+    { name: "Mahatma Gandhi", country: "Índia", silhouette: "https://1.bp.blogspot.com/-_N9DYP7zAyw/TljaabmHKYI/AAAAAAAAKuk/MEaVUv5Dw-w/s1600/mahatma-gandhi-11.jpg" },
+    { name: "Albert Einstein", country: "Alemanha", silhouette: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_1921_by_Ferdinand_Schmutlzer_02.jpg/800px-Albert_Einstein_1921_by_Ferdinand_Schmutlzer_02.jpg" },
+];
+
 let currentCountryIndex = 0;
-let score = 3; // Pontuação inicial
-let answered = false; // Para rastrear se a pergunta foi respondida
+let score = 0;
+let lives = 3;
+let answered = false;
+let gameMode = 'countries';
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -36,92 +38,157 @@ function shuffleArray(array) {
     }
 }
 
-shuffleArray(countries); // Embaralha o array de países
+shuffleArray(countries);
+shuffleArray(historicalFigures); // Embaralha as figuras históricas
 
 const countrySilhouette = document.getElementById('country-silhouette');
+const historicalFigure = document.getElementById('historical-figure');
 const answerInput = document.getElementById('answer');
 const submitButton = document.getElementById('submit');
 const proceedButton = document.getElementById('proceed');
-const restartButton = document.getElementById('restart'); // Botão de reiniciar
+const restartButton = document.getElementById('restart');
 const message = document.getElementById('message');
 const scoreDisplay = document.getElementById('score');
+const livesDisplay = document.getElementById('lives');
+
+const modeCountriesButton = document.getElementById('mode-countries');
+const modeHistoricalButton = document.getElementById('mode-historical');
+const startButton = document.getElementById('start');
+const menu = document.getElementById('menu');
+
+modeCountriesButton.addEventListener('click', () => {
+    gameMode = 'countries';
+    startButton.style.display = 'block';
+});
+
+modeHistoricalButton.addEventListener('click', () => {
+    gameMode = 'historical';
+    startButton.style.display = 'block';
+});
+
+startButton.addEventListener('click', () => {
+    menu.style.display = 'none';
+    document.getElementById('game').style.display = 'block';
+    loadCountry();
+});
 
 function normalizeString(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); // Remove acentos e coloca em minúsculas
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 function loadCountry() {
     const currentCountry = countries[currentCountryIndex];
     countrySilhouette.src = currentCountry.silhouette;
+    countrySilhouette.style.display = 'block'; // Exibe a silhueta do país
+    historicalFigure.style.display = 'none'; // Esconde a figura histórica
     message.textContent = '';
     answerInput.value = '';
-    answerInput.disabled = false; // Habilita o campo de entrada
-    submitButton.disabled = false; // Habilita o botão de enviar
-    proceedButton.style.display = 'none'; // Esconde o botão de prosseguir
-    restartButton.style.display = 'none'; // Esconde o botão de reiniciar
-    scoreDisplay.textContent = `Pontuação: ${score}`; // Atualiza a exibição da pontuação
-    answered = false; // Reseta a flag para nova pergunta
+    answerInput.disabled = false;
+    submitButton.disabled = false;
+    proceedButton.style.display = 'none';
+    restartButton.style.display = 'none';
+    scoreDisplay.textContent = `Pontuação: ${score}`;
+    livesDisplay.textContent = `Vidas: ${lives}❤️`;
+    answered = false;
+}
+
+function loadHistoricalFigure() {
+    const currentFigure = historicalFigures[currentCountryIndex];
+    historicalFigure.src = currentFigure.silhouette;
+    historicalFigure.style.display = 'block'; // Mostra a imagem da figura histórica
+    countrySilhouette.style.display = 'none'; // Esconde a silhueta do país
+    message.textContent = '';
+    answerInput.value = '';
+    answerInput.disabled = false;
+    submitButton.disabled = false;
+    proceedButton.style.display = 'none';
+    restartButton.style.display = 'none';
+    scoreDisplay.textContent = `Pontuação: ${score}`;
+    livesDisplay.textContent = `Vidas: ${lives}❤️`;
+    answered = false;
 }
 
 submitButton.addEventListener('click', () => {
-    const answer = normalizeString(answerInput.value.trim());
-    const correctAnswer = normalizeString(countries[currentCountryIndex].name);
-
-    if (answer === correctAnswer) {
-        message.textContent = "Correto! 😊";
-        message.style.color = "green";
-        score++; // Aumenta a pontuação
-    } else {
-        message.textContent = "ERROU NEWBA! 😢";
-        message.style.color = "red";
-        score--; // Diminui a pontuação
+    let answer;
+    if (gameMode === 'countries') {
+        answer = normalizeString(answerInput.value.trim());
+        const correctAnswer = normalizeString(countries[currentCountryIndex].name);
+        if (answer === correctAnswer) {
+            message.textContent = "Correto";
+            message.style.color = "green";
+            score++;
+        } else {
+            message.textContent = "ERROU NEWBA";
+            message.style.color = "red";
+            lives--;
+        }
+    } else if (gameMode === 'historical') {
+        answer = normalizeString(answerInput.value.trim());
+        const correctAnswer = normalizeString(historicalFigures[currentCountryIndex].country);
+        if (answer === correctAnswer) {
+            message.textContent = "Correto";
+            message.style.color = "green";
+            score++;
+        } else {
+            message.textContent = "ERROU NEWBA";
+            message.style.color = "red";
+            lives--;
+        }
     }
 
-    scoreDisplay.textContent = `Pontuação: ${score}`; // Atualiza a exibição da pontuação
-    answerInput.disabled = true; // Desabilita o campo de entrada
-    submitButton.disabled = true; // Desabilita o botão de enviar
-    proceedButton.style.display = 'block'; // Mostra o botão de prosseguir
-    answered = true; // Marca que a pergunta foi respondida
+    scoreDisplay.textContent = `Pontuação: ${score}`;
+    livesDisplay.textContent = `Vidas: ${lives}`;
+    answerInput.disabled = true;
+    submitButton.disabled = true;
+    proceedButton.style.display = 'block';
+    answered = true;
 
-    if (score <= 0) {
-        message.textContent = "Você perdeu! 😔";
-        submitButton.disabled = true; // Desabilita o botão de submissão
-        proceedButton.style.display = 'none'; // Esconde o botão de prosseguir
-        restartButton.style.display = 'block'; // Mostra o botão de reiniciar
+    if (lives <= 0) {
+        message.textContent = "Você perdeu";
+        submitButton.disabled = true;
+        proceedButton.style.display = 'none';
+        restartButton.style.display = 'block';
     }
 });
 
-// Adicionando a funcionalidade do botão "Prosseguir"
 proceedButton.addEventListener('click', () => {
-    if (score > 0) { // Apenas avança se a pontuação for maior que zero
-        message.textContent = ''; // Limpa a mensagem
-        proceedButton.style.display = 'none'; // Esconde o botão de prosseguir
-        currentCountryIndex++; // Avança para o próximo país
+    if (gameMode === 'countries') {
+        currentCountryIndex++;
         if (currentCountryIndex < countries.length) {
-            loadCountry(); // Carrega o próximo país
+            loadCountry();
         } else {
-            message.textContent = "Parabéns, você zerou o jogo! 🎉";
+            message.textContent = "Você zerou o jogo!";
+            submitButton.disabled = true;
+        }
+    } else if (gameMode === 'historical') {
+        currentCountryIndex++;
+        if (currentCountryIndex < historicalFigures.length) {
+            loadHistoricalFigure();
+        } else {
+            message.textContent = "Você zerou o jogo!";
             submitButton.disabled = true;
         }
     }
 });
 
-// Reiniciar o jogo
 restartButton.addEventListener('click', () => {
-    currentCountryIndex = 0; // Reinicia o índice do país
-    score = 3; // Reinicia a pontuação
-    shuffleArray(countries); // Embaralha os países novamente
-    submitButton.disabled = false; // Habilita o botão de submissão
-    loadCountry(); // Carrega o primeiro país
+    currentCountryIndex = 0;
+    score = 0;
+    lives = 3;
+    shuffleArray(countries);
+    shuffleArray(historicalFigures); // Embaralha novamente as figuras históricas
+    submitButton.disabled = false;
+    menu.style.display = 'block';
+    document.getElementById('game').style.display = 'none';
 });
 
-// Adicionando a funcionalidade para pressionar Enter para enviar a resposta ou prosseguir
+// Ação para pressionar Enter
 answerInput.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         if (!answered) {
-            submitButton.click(); // Simula um clique no botão de enviar
-        } else if (answered && score > 0) {
-            proceedButton.click(); // Simula um clique no botão de prosseguir
+            submitButton.click();
+        } else if (answered && score >= 0) {
+            proceedButton.click();
         }
     }
 });

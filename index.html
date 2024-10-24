@@ -7,18 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="menu">
         <h1>Descubra o país pela sua silhueta</h1>
-        <div id="game">
-            <img id="country-silhouette" src="" alt="Silhueta do País">
-            <p id="score">Pontuação: 3</p>
-            <input type="text" id="answer" placeholder="Digite o nome do país">
-            <button id="submit">Enviar</button>
-            <p id="message"></p>
-            <button id="proceed" style="display: none;">Prosseguir</button>
-            <button id="restart" style="display: none;">Reiniciar Jogo</button>
-        </div>
+        <button id="mode-countries">Silhuetas dos países</button>
+        <button id="mode-historical">Personalidades Históricas</button>
+        <button id="start" style="display: none;">Iniciar Jogo</button>
     </div>
-    <script src="script.js"></script>
+    <div id="game" style="display: none;">
+        <img id="country-silhouette" src="" alt="Silhueta do País">
+        <p id="score"></p>
+        <input type="text" id="answer" placeholder="Digite o nome do país">
+        <button id="submit">Enviar</button>
+        <p id="message"></p>
+        <p id="lives">Vidas❤️: 3 </p>
+        <button id="proceed" style="display: none;">Prosseguir</button>
+        <button id="restart" style="display: none;">Reiniciar Jogo</button>
+    </div>
+    <div id="game" style="display:none;">
+        <img id="country-silhouette" src="" alt="Silhueta">
+        <img id="historical-figure" src="" alt="Figura Histórica" style="display:none;">
+        <input type="text" id="answer" placeholder="Qual país?">
+        <button id="submit">Enviar</button>
+        <button id="proceed" style="display:none;">Próximo</button>
+        <button id="restart" style="display:none;">Reiniciar</button>
+        <div id="message"></div>
+        <div id="score"></div>
+        <div id="lives"></div>
+    </div>    
+    <script src="script.js"></script>   
 </body>
 </html>
