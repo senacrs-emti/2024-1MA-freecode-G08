@@ -31,3 +31,15 @@ button {
     padding: 10px;
     margin-left: 10px;
 }
+
+#proceed{
+    background-color: greenyellow;
+}
+
+#submit{
+    background-color: greenyellow;
+}
+
+#restart{
+    background-color: red;
+}

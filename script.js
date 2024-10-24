@@ -26,7 +26,8 @@ const countries = [
 ];
 
 let currentCountryIndex = 0;
-let score = 3; // Pontuação inicial
+let score = 0; // Pontuação inicial
+let lives = 3; // Vidas
 let answered = false; // Para rastrear se a pergunta foi respondida
 
 function shuffleArray(array) {
@@ -45,6 +46,7 @@ const proceedButton = document.getElementById('proceed');
 const restartButton = document.getElementById('restart'); // Botão de reiniciar
 const message = document.getElementById('message');
 const scoreDisplay = document.getElementById('score');
+const livesDisplay = document.getElementById('lives')
 
 function normalizeString(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); // Remove acentos e coloca em minúsculas
@@ -60,6 +62,7 @@ function loadCountry() {
     proceedButton.style.display = 'none'; // Esconde o botão de prosseguir
     restartButton.style.display = 'none'; // Esconde o botão de reiniciar
     scoreDisplay.textContent = `Pontuação: ${score}`; // Atualiza a exibição da pontuação
+    livesDisplay.textContent = `Vidas: ${lives}❤️`;
     answered = false; // Reseta a flag para nova pergunta
 }
 
@@ -68,23 +71,24 @@ submitButton.addEventListener('click', () => {
     const correctAnswer = normalizeString(countries[currentCountryIndex].name);
 
     if (answer === correctAnswer) {
-        message.textContent = "Correto! 😊";
+        message.textContent = "Correto";
         message.style.color = "green";
         score++; // Aumenta a pontuação
     } else {
-        message.textContent = "ERROU NEWBA! 😢";
+        message.textContent = "ERROU NEWBA";
         message.style.color = "red";
-        score--; // Diminui a pontuação
+        lives--; // Diminui a pontuação
     }
 
     scoreDisplay.textContent = `Pontuação: ${score}`; // Atualiza a exibição da pontuação
+    livesDisplay.textContent = `Vidas: ${lives}`;
     answerInput.disabled = true; // Desabilita o campo de entrada
     submitButton.disabled = true; // Desabilita o botão de enviar
     proceedButton.style.display = 'block'; // Mostra o botão de prosseguir
     answered = true; // Marca que a pergunta foi respondida
 
-    if (score <= 0) {
-        message.textContent = "Você perdeu! 😔";
+    if (lives <= 0) {
+        message.textContent = "Você perdeu";
         submitButton.disabled = true; // Desabilita o botão de submissão
         proceedButton.style.display = 'none'; // Esconde o botão de prosseguir
         restartButton.style.display = 'block'; // Mostra o botão de reiniciar
@@ -93,14 +97,14 @@ submitButton.addEventListener('click', () => {
 
 // Adicionando a funcionalidade do botão "Prosseguir"
 proceedButton.addEventListener('click', () => {
-    if (score > 0) { // Apenas avança se a pontuação for maior que zero
+    if (score >= 0) { // Apenas avança se a pontuação for maior que zero
         message.textContent = ''; // Limpa a mensagem
         proceedButton.style.display = 'none'; // Esconde o botão de prosseguir
         currentCountryIndex++; // Avança para o próximo país
         if (currentCountryIndex < countries.length) {
             loadCountry(); // Carrega o próximo país
         } else {
-            message.textContent = "Parabéns, você zerou o jogo! 🎉";
+            message.textContent = "Você zerou o jogo!";
             submitButton.disabled = true;
         }
     }
