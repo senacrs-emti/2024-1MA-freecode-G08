@@ -113,7 +113,7 @@ proceedButton.addEventListener('click', () => {
 // Reiniciar o jogo
 restartButton.addEventListener('click', () => {
     currentCountryIndex = 0; // Reinicia o índice do país
-    score = 3; // Reinicia a pontuação
+    lives = 3; // Reinicia a pontuação
     shuffleArray(countries); // Embaralha os países novamente
     submitButton.disabled = false; // Habilita o botão de submissão
     loadCountry(); // Carrega o primeiro país
