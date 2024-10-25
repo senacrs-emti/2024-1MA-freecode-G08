@@ -47,3 +47,7 @@ button {
 #restart {
     background-color: red;
 }
+
+#score{
+    margin:10px;
+}
