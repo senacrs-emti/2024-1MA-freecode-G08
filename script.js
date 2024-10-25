@@ -14,6 +14,14 @@ const countries = [
 const historicalFigures = [
     { name: "Mahatma Gandhi", country: "Índia", silhouette: "https://1.bp.blogspot.com/-_N9DYP7zAyw/TljaabmHKYI/AAAAAAAAKuk/MEaVUv5Dw-w/s1600/mahatma-gandhi-11.jpg" },
     { name: "Albert Einstein", country: "Alemanha", silhouette: "https://s4.static.brasilescola.uol.com.br/be/conteudo/images/2-albert-einstein.jpg" },
+    {name: "Santos Dumont", country: "Brasil", silhouette: "https://i0.wp.com/100fronteiras.com/wp-content/uploads/2021/08/WhatsApp-Image-2021-08-02-at-09.57.56-e1658344342637.jpeg?fit=854%2C822&ssl=1"},
+    {name: "joana d'arc", country: "França", silhouette: "https://escolaeducacao.com.br/wp-content/uploads/2019/12/joana-darc-746x1024.jpg"},
+    {name: "Princesa Isabel", country: "Brasil", silhouette: "https://th.bing.com/th/id/OIP.JWv6Brp-OnB86_3V9wViiAHaJy?rs=1&pid=ImgDetMain"},
+    {name: "Marint Luther King", country: "Estados Unidos", silhouette: "https://th.bing.com/th/id/OIP.i-98N8oFZZU62N53_8wP7gHaE5?rs=1&pid=ImgDetMain"},
+    {name: "Winston Churcill", country: "Reino unido", silhouette: "https://th.bing.com/th/id/OIP.Cwmd-oZnz9Iwyk7NfLNeZgHaIB?rs=1&pid=ImgDetMain"},
+    {name: "Napoleão", country: "França", silhouette: "https://rp-online.de/imgs/32/6/2/9/8/5/7/0/9/tok_4c36b11c57caed6391d99c90051cdf0f/w1004_h1200_x502_y600_RP_62754687_1413190521_RGB_190_1_1_87251bc1ccf54600720e4fb337d81769_1563371125_1413190521_01758c00b9-be2788f85fad9148.jpg"},
+    {name: "Alan Turing", country: "Reino Unido", silhouette: "https://cdn.britannica.com/81/191581-050-8C0A8CD3/Alan-Turing.jpg"},
+    {name: "Anne Frank", country: "Alemanha", silhouette: "https://th.bing.com/th/id/R.7e0b5c399b8411850a7d37f4c020d809?rik=UpYQ6eTxjebJow&riu=http%3a%2f%2ftonsoffacts.com%2fwp-content%2fuploads%2f2018%2f06%2fannefrank.jpg&ehk=FUNeDZAmz9L6AWNI%2bF8SHSotA0qG6Gs7nQ%2fhE%2fbB%2fNk%3d&risl=&pid=ImgRaw&r=0"},
 ];
 
 let currentIndex = 0;
