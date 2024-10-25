@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,26 +14,16 @@
         <button id="start" style="display: none;">Iniciar Jogo</button>
     </div>
     <div id="game" style="display: none;">
-        <img id="country-silhouette" src="" alt="Silhueta do País">
-        <p id="score"></p>
-        <input type="text" id="answer" placeholder="Digite o nome do país">
-        <button id="submit">Enviar</button>
-        <p id="message"></p>
-        <p id="lives">Vidas❤️: 3 </p>
-        <button id="proceed" style="display: none;">Prosseguir</button>
-        <button id="restart" style="display: none;">Reiniciar Jogo</button>
+        <h2 id="message"></h2>
+        <img id="country-silhouette" style="display: none;">
+        <img id="historical-figure" style="display: none;">
+        <div id="score">Pontuação: 0</div>
+        <input type="text" id="answer" placeholder="Digite sua resposta">
+        <button id="submit">Enviar Resposta</button>
+        <button id="proceed" style="display: none;">Próxima</button>
+        <button id="restart" style="display: none;">Reiniciar</button>
+        <div id="lives">Vidas: 3 ❤️</div>
     </div>
-    <div id="game" style="display:none;">
-        <img id="country-silhouette" src="" alt="Silhueta">
-        <img id="historical-figure" src="" alt="Figura Histórica" style="display:none;">
-        <input type="text" id="answer" placeholder="Qual país?">
-        <button id="submit">Enviar</button>
-        <button id="proceed" style="display:none;">Próximo</button>
-        <button id="restart" style="display:none;">Reiniciar</button>
-        <div id="message"></div>
-        <div id="score"></div>
-        <div id="lives"></div>
-    </div>    
-    <script src="script.js"></script>   
+    <script src="script.js"></script>
 </body>
 </html>

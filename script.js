@@ -9,37 +9,17 @@ const countries = [
     { name: "Suécia", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLllQQLEJFDS9LwAmz6RHMD_jLuC3_tYCUYw&s" },
     { name: "Noruega", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7KIAjoifCcLhJQZGNMMbHn0DNo8ujITECA&s" },
     { name: "Finlândia", silhouette: "https://img.freepik.com/vetores-premium/mapa-da-finlandia-silhueta-negra-altamente-detalhada-isolada-no-fundo-branco_601298-14145.jpg" },
-    { name: "Holanda", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNftqtybvwiPck2s_XCzAttxuiediVbsW-Lw&s" },
-    { name: "Bélgica", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFAoG2JS2dUVTS1BCW6okKNOYc_7ez1C2bAg&s" },
-    { name: "Suíça", silhouette: "https://img.freepik.com/vetores-premium/mapa-de-silhueta-da-suica_721965-2028.jpg" },
-    { name: "Áustria", silhouette: "https://img.freepik.com/vetores-premium/silhueta-negra-do-pais-da-austria-mapa-ilustracao-vetorial_628809-677.jpg" },
-    { name: "República Tcheca", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9C4SXRu9bR2VklBTq-uUXlyNA3vMw367Cng&s" },
-    { name: "Hungria", silhouette: "https://img.freepik.com/vetores-premium/silhueta-preta-do-mapa-geografico-do-pais-da-hungria-facil-de-colorir_514344-1376.jpg" },
-    { name: "Polônia", silhouette: "https://cdn-icons-png.flaticon.com/512/5866/5866581.png" },
-    { name: "Japão", silhouette: "https://static.vecteezy.com/ti/vetor-gratis/p1/3127394-japan-map-silhouette-vector-illustration-sketch-vetor.jpg" },
-    { name: "Índia", silhouette: "https://img.freepik.com/vetores-premium/mapa-da-silhueta-da-india-isolado-no-fundo-branco_650065-132.jpg" },
 ];
 
 const historicalFigures = [
     { name: "Mahatma Gandhi", country: "Índia", silhouette: "https://1.bp.blogspot.com/-_N9DYP7zAyw/TljaabmHKYI/AAAAAAAAKuk/MEaVUv5Dw-w/s1600/mahatma-gandhi-11.jpg" },
-    { name: "Albert Einstein", country: "Alemanha", silhouette: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_1921_by_Ferdinand_Schmutlzer_02.jpg/800px-Albert_Einstein_1921_by_Ferdinand_Schmutlzer_02.jpg" },
+    { name: "Albert Einstein", country: "Alemanha", silhouette: "https://s4.static.brasilescola.uol.com.br/be/conteudo/images/2-albert-einstein.jpg" },
 ];
 
-let currentCountryIndex = 0;
+let currentIndex = 0;
 let score = 0;
 let lives = 3;
-let answered = false;
 let gameMode = 'countries';
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-shuffleArray(countries);
-shuffleArray(historicalFigures); // Embaralha as figuras históricas
 
 const countrySilhouette = document.getElementById('country-silhouette');
 const historicalFigure = document.getElementById('historical-figure');
@@ -58,45 +38,51 @@ const menu = document.getElementById('menu');
 
 modeCountriesButton.addEventListener('click', () => {
     gameMode = 'countries';
+    currentIndex = 0;
     startButton.style.display = 'block';
 });
 
 modeHistoricalButton.addEventListener('click', () => {
     gameMode = 'historical';
+    currentIndex = 0;
     startButton.style.display = 'block';
 });
 
 startButton.addEventListener('click', () => {
     menu.style.display = 'none';
     document.getElementById('game').style.display = 'block';
-    loadCountry();
+    loadNext();
 });
 
 function normalizeString(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+function loadNext() {
+    resetGameUI();
+    
+    if (gameMode === 'countries') {
+        loadCountry();
+    } else {
+        loadHistoricalFigure();
+    }
+}
+
 function loadCountry() {
-    const currentCountry = countries[currentCountryIndex];
+    const currentCountry = countries[currentIndex];
     countrySilhouette.src = currentCountry.silhouette;
-    countrySilhouette.style.display = 'block'; // Exibe a silhueta do país
-    historicalFigure.style.display = 'none'; // Esconde a figura histórica
-    message.textContent = '';
-    answerInput.value = '';
-    answerInput.disabled = false;
-    submitButton.disabled = false;
-    proceedButton.style.display = 'none';
-    restartButton.style.display = 'none';
-    scoreDisplay.textContent = `Pontuação: ${score}`;
-    livesDisplay.textContent = `Vidas: ${lives}❤️`;
-    answered = false;
+    countrySilhouette.style.display = 'block';
+    historicalFigure.style.display = 'none';
 }
 
 function loadHistoricalFigure() {
-    const currentFigure = historicalFigures[currentCountryIndex];
+    const currentFigure = historicalFigures[currentIndex];
     historicalFigure.src = currentFigure.silhouette;
-    historicalFigure.style.display = 'block'; // Mostra a imagem da figura histórica
-    countrySilhouette.style.display = 'none'; // Esconde a silhueta do país
+    historicalFigure.style.display = 'block';
+    countrySilhouette.style.display = 'none';
+}
+
+function resetGameUI() {
     message.textContent = '';
     answerInput.value = '';
     answerInput.disabled = false;
@@ -104,94 +90,54 @@ function loadHistoricalFigure() {
     proceedButton.style.display = 'none';
     restartButton.style.display = 'none';
     scoreDisplay.textContent = `Pontuação: ${score}`;
-    livesDisplay.textContent = `Vidas: ${lives}❤️`;
-    answered = false;
+    livesDisplay.textContent = `Vidas: ${lives} ❤️`;
 }
 
 submitButton.addEventListener('click', () => {
-    let answer;
-    if (gameMode === 'countries') {
-        answer = normalizeString(answerInput.value.trim());
-        const correctAnswer = normalizeString(countries[currentCountryIndex].name);
-        if (answer === correctAnswer) {
-            message.textContent = "Correto";
-            message.style.color = "green";
-            score++;
+    let answer = answerInput.value.trim();
+    let correctAnswer = gameMode === 'countries' ? countries[currentIndex].name : historicalFigures[currentIndex].name;
+
+    if (normalizeString(answer) === normalizeString(correctAnswer)) {
+        score++;
+        message.textContent = "Correto!";
+        scoreDisplay.textContent = `Pontuação: ${score}`;
+        proceedButton.style.display = 'block';
+        answerInput.disabled = true;
+        submitButton.disabled = true;
+    } else {
+        lives--;
+        message.textContent = `Incorreto! A resposta correta era ${correctAnswer}.`;
+        livesDisplay.textContent = `Vidas: ${lives} ❤️`;
+        answerInput.disabled = true;
+        submitButton.disabled = true;
+
+        if (lives <= 0) {
+            message.textContent += " Game Over!";
+            submitButton.disabled = true;
+            restartButton.style.display = 'block';
         } else {
-            message.textContent = "ERROU NEWBA";
-            message.style.color = "red";
-            lives--;
-        }
-    } else if (gameMode === 'historical') {
-        answer = normalizeString(answerInput.value.trim());
-        const correctAnswer = normalizeString(historicalFigures[currentCountryIndex].country);
-        if (answer === correctAnswer) {
-            message.textContent = "Correto";
-            message.style.color = "green";
-            score++;
-        } else {
-            message.textContent = "ERROU NEWBA";
-            message.style.color = "red";
-            lives--;
+            proceedButton.style.display = 'block';
         }
     }
+});
 
-    scoreDisplay.textContent = `Pontuação: ${score}`;
-    livesDisplay.textContent = `Vidas: ${lives}`;
-    answerInput.disabled = true;
-    submitButton.disabled = true;
-    proceedButton.style.display = 'block';
-    answered = true;
-
-    if (lives <= 0) {
-        message.textContent = "Você perdeu";
-        submitButton.disabled = true;
+proceedButton.addEventListener('click', () => {
+    currentIndex++;
+    if ((gameMode === 'countries' && currentIndex < countries.length) || (gameMode === 'historical' && currentIndex < historicalFigures.length)) {
+        loadNext();
+        answerInput.focus();
+    } else {
+        message.textContent = "Você completou todas as silhuetas!";
         proceedButton.style.display = 'none';
         restartButton.style.display = 'block';
     }
 });
 
-proceedButton.addEventListener('click', () => {
-    if (gameMode === 'countries') {
-        currentCountryIndex++;
-        if (currentCountryIndex < countries.length) {
-            loadCountry();
-        } else {
-            message.textContent = "Você zerou o jogo!";
-            submitButton.disabled = true;
-        }
-    } else if (gameMode === 'historical') {
-        currentCountryIndex++;
-        if (currentCountryIndex < historicalFigures.length) {
-            loadHistoricalFigure();
-        } else {
-            message.textContent = "Você zerou o jogo!";
-            submitButton.disabled = true;
-        }
-    }
-});
-
 restartButton.addEventListener('click', () => {
-    currentCountryIndex = 0;
     score = 0;
     lives = 3;
-    shuffleArray(countries);
-    shuffleArray(historicalFigures); // Embaralha novamente as figuras históricas
-    submitButton.disabled = false;
+    currentIndex = 0;
+    restartButton.style.display = 'none';
     menu.style.display = 'block';
     document.getElementById('game').style.display = 'none';
 });
-
-// Ação para pressionar Enter
-answerInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        if (!answered) {
-            submitButton.click();
-        } else if (answered && score >= 0) {
-            proceedButton.click();
-        }
-    }
-});
-
-// Iniciar o jogo
-loadCountry();
