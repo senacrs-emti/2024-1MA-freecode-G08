@@ -20,6 +20,7 @@ let currentIndex = 0;
 let score = 0;
 let lives = 3;
 let gameMode = 'countries';
+let playerName = '';
 
 const countrySilhouette = document.getElementById('country-silhouette');
 const historicalFigure = document.getElementById('historical-figure');
@@ -27,6 +28,10 @@ const answerInput = document.getElementById('answer');
 const submitButton = document.getElementById('submit');
 const proceedButton = document.getElementById('proceed');
 const restartButton = document.getElementById('restart');
+const showRankingButton = document.getElementById('show-ranking'); // Botão de ranking
+const rankingList = document.getElementById('ranking-list');
+const rankingDiv = document.getElementById('ranking');
+const backToGameButton = document.getElementById('back-to-game');
 const message = document.getElementById('message');
 const scoreDisplay = document.getElementById('score');
 const livesDisplay = document.getElementById('lives');
@@ -34,21 +39,29 @@ const livesDisplay = document.getElementById('lives');
 const modeCountriesButton = document.getElementById('mode-countries');
 const modeHistoricalButton = document.getElementById('mode-historical');
 const startButton = document.getElementById('start');
+const playerNameInput = document.getElementById('player-name');
 const menu = document.getElementById('menu');
 
 modeCountriesButton.addEventListener('click', () => {
     gameMode = 'countries';
     currentIndex = 0;
     startButton.style.display = 'block';
+    showRankingButton.style.display = 'block'; // Mostrar botão de ranking
 });
 
 modeHistoricalButton.addEventListener('click', () => {
     gameMode = 'historical';
     currentIndex = 0;
     startButton.style.display = 'block';
+    showRankingButton.style.display = 'block'; // Mostrar botão de ranking
 });
 
 startButton.addEventListener('click', () => {
+    playerName = playerNameInput.value.trim();
+    if (!playerName) {
+        alert("Por favor, digite seu nome.");
+        return;
+    }
     menu.style.display = 'none';
     document.getElementById('game').style.display = 'block';
     loadNext();
@@ -89,6 +102,7 @@ function resetGameUI() {
     submitButton.disabled = false;
     proceedButton.style.display = 'none';
     restartButton.style.display = 'none';
+    showRankingButton.style.display = 'none'; // Esconder o botão de ranking
     scoreDisplay.textContent = `Pontuação: ${score}`;
     livesDisplay.textContent = `Vidas: ${lives} ❤️`;
 }
@@ -112,9 +126,7 @@ submitButton.addEventListener('click', () => {
         submitButton.disabled = true;
 
         if (lives <= 0) {
-            message.textContent += " Game Over!";
-            submitButton.disabled = true;
-            restartButton.style.display = 'block';
+            endGame();
         } else {
             proceedButton.style.display = 'block';
         }
@@ -125,11 +137,8 @@ proceedButton.addEventListener('click', () => {
     currentIndex++;
     if ((gameMode === 'countries' && currentIndex < countries.length) || (gameMode === 'historical' && currentIndex < historicalFigures.length)) {
         loadNext();
-        answerInput.focus();
     } else {
-        message.textContent = "Você completou todas as silhuetas!";
-        proceedButton.style.display = 'none';
-        restartButton.style.display = 'block';
+        endGame();
     }
 });
 
@@ -138,6 +147,46 @@ restartButton.addEventListener('click', () => {
     lives = 3;
     currentIndex = 0;
     restartButton.style.display = 'none';
+    showRankingButton.style.display = 'none'; // Esconder o botão de ranking ao reiniciar
     menu.style.display = 'block';
     document.getElementById('game').style.display = 'none';
+});
+
+function savePlayerScore() {
+    const playerScores = JSON.parse(localStorage.getItem('playerScores')) || [];
+    playerScores.push({ name: playerName, score: score });
+    localStorage.setItem('playerScores', JSON.stringify(playerScores));
+}
+
+function showRanking() {
+    rankingList.innerHTML = '';
+    const playerScores = JSON.parse(localStorage.getItem('playerScores')) || [];
+    playerScores.sort((a, b) => b.score - a.score); // Ordenar por pontuação
+
+    playerScores.forEach(player => {
+        const li = document.createElement('li');
+        li.textContent = `${player.name}: ${player.score}`;
+        rankingList.appendChild(li);
+    });
+
+    rankingDiv.style.display = 'block';
+}
+
+showRankingButton.addEventListener('click', () => {
+    showRanking(); // Mostrar ranking ao clicar no botão
+});
+
+// Mostra o botão de mostrar ranking quando o jogo acaba
+function endGame() {
+    message.textContent += " Game Over!";
+    savePlayerScore();
+    submitButton.disabled = true;
+    restartButton.style.display = 'block';
+    showRankingButton.style.display = 'block'; // Mostrar o botão de ranking
+}
+
+backToGameButton.addEventListener('click', () => {
+    rankingDiv.style.display = 'none'; // Esconder ranking
+    menu.style.display = 'none'; // Esconder menu
+    document.getElementById('game').style.display = 'block'; // Mostrar jogo
 });

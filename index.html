@@ -9,20 +9,32 @@
 <body>
     <div class="container" id="menu">
         <h1>Descubra o país pela sua silhueta</h1>
+        <input type="text" id="player-name" placeholder="Digite seu nome">
         <button id="mode-countries">Silhuetas dos países</button>
         <button id="mode-historical">Personalidades Históricas</button>
         <button id="start" style="display: none;">Iniciar Jogo</button>
-    </div>
+        <button id="show-ranking">Mostrar Ranking</button> <!-- Botão para mostrar ranking -->
+    </div>    
     <div id="game" style="display: none;">
         <h2 id="message"></h2>
         <img id="country-silhouette" style="display: none;">
         <img id="historical-figure" style="display: none;">
         <div id="score">Pontuação: 0</div>
         <input type="text" id="answer" placeholder="Digite sua resposta">
-        <button id="submit">Enviar Resposta</button>
-        <button id="proceed" style="display: none;">Próxima</button>
+        
+        <!-- Novo contêiner para os botões -->
+        <div class="button-container">
+            <button id="submit">Enviar Resposta</button>
+            <button id="proceed" style="display: none;">Próxima</button>
+        </div>
         <button id="restart" style="display: none;">Reiniciar</button>
         <div id="lives">Vidas: 3 ❤️</div>
+    </div>
+    
+    <div id="ranking" style="display: none;">
+        <h2>Ranking</h2>
+        <ul id="ranking-list"></ul>
+        <button id="back-to-game">Voltar ao Jogo</button>
     </div>
     <script src="script.js"></script>
 </body>

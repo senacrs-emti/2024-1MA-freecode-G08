@@ -44,10 +44,25 @@ button {
     background-color: greenyellow;
 }
 
+#show-ranking {
+    background-color: lightseagreen;
+}
+
 #restart {
     background-color: red;
 }
 
-#score{
-    margin:10px;
+#score {
+    margin: 10px;
+}
+
+/* Novo estilo para o contêiner dos botões */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+}
+
+.button-container button {
+    margin: 10px; /* Margem entre os botões */
+    width: auto; /* Ajusta a largura dos botões */
 }
