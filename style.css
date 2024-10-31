@@ -49,7 +49,7 @@ button {
 }
 
 #restart {
-    background-color: red;
+    background-color: lightseagreen;
 }
 
 #score {
@@ -65,4 +65,14 @@ button {
 .button-container button {
     margin: 10px; /* Margem entre os botões */
     width: auto; /* Ajusta a largura dos botões */
+}
+
+.ranking{
+    text-align: center;
+}
+
+#ranking-list{
+    text-align: center;
+    color: red;
+    list-style-type: none;
 }
