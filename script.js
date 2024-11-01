@@ -24,12 +24,17 @@ const historicalFigures = [
     { name: "Dom Pedro Segundo", country: "Brasil", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbrWS0aiUlHE9w28ge6O99585zsGtYeFiVGg&s", answers: ["Dom Pedro 2"] },
 ];
 
+// Variáveis globais para controle de estado do jogo
 let currentIndex = 0;
 let score = 0;
 let lives = 5;
 let gameMode = 'countries';
 let playerName = '';
 
+// Array para armazenar o ranking dos jogadores
+const ranking = [];
+
+// Função para embaralhar um array
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -37,10 +42,12 @@ function shuffleArray(array) {
     }
 }
 
+// Função para normalizar o texto, removendo acentos e convertendo para minúsculas
 function normalizarTexto(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+// Seleção dos elementos do DOM
 const countrySilhouette = document.getElementById('country-silhouette');
 const historicalFigure = document.getElementById('historical-figure');
 const answerInput = document.getElementById('answer');
@@ -54,13 +61,13 @@ const backToGameButton = document.getElementById('back-to-game');
 const message = document.getElementById('message');
 const scoreDisplay = document.getElementById('score');
 const livesDisplay = document.getElementById('lives');
-
-const modeCountriesButton = document.getElementById('mode-countries');
-const modeHistoricalButton = document.getElementById('mode-historical');
+const modeCountriesButton = document.getElementById('modo-countries');
+const modeHistoricalButton = document.getElementById('modo-historical');
 const startButton = document.getElementById('start');
 const playerNameInput = document.getElementById('player-name');
 const menu = document.getElementById('menu');
 
+// Evento para selecionar o modo de jogo "Países"
 modeCountriesButton.addEventListener('click', () => {
     gameMode = 'countries';
     currentIndex = 0;
@@ -68,6 +75,7 @@ modeCountriesButton.addEventListener('click', () => {
     showRankingButton.style.display = 'block';
 });
 
+// Evento para selecionar o modo de jogo "Histórico"
 modeHistoricalButton.addEventListener('click', () => {
     gameMode = 'historical';
     currentIndex = 0;
@@ -75,6 +83,7 @@ modeHistoricalButton.addEventListener('click', () => {
     showRankingButton.style.display = 'block';
 });
 
+// Evento para iniciar o jogo
 startButton.addEventListener('click', () => {
     playerName = playerNameInput.value.trim();
     if (!playerName) {
@@ -88,9 +97,9 @@ startButton.addEventListener('click', () => {
     loadNext();
 });
 
+// Função para carregar o próximo item
 function loadNext() {
     resetGameUI();
-    
     if (gameMode === 'countries') {
         loadCountry();
     } else {
@@ -98,6 +107,7 @@ function loadNext() {
     }
 }
 
+// Função para carregar a imagem de um país
 function loadCountry() {
     const currentCountry = countries[currentIndex];
     countrySilhouette.src = currentCountry.silhouette;
@@ -105,6 +115,7 @@ function loadCountry() {
     historicalFigure.style.display = 'none';
 }
 
+// Função para carregar a imagem de uma figura histórica
 function loadHistoricalFigure() {
     const currentFigure = historicalFigures[currentIndex];
     historicalFigure.src = currentFigure.silhouette;
@@ -112,102 +123,98 @@ function loadHistoricalFigure() {
     countrySilhouette.style.display = 'none';
 }
 
+// Função para resetar a UI do jogo
 function resetGameUI() {
-    message.textContent = '';
     answerInput.value = '';
-    answerInput.disabled = false;
-    submitButton.disabled = false;
-    proceedButton.style.display = 'none';
-    restartButton.style.display = 'none';
-    showRankingButton.style.display = 'none'; // Isso foi removido aqui para reexibir o botão depois
+    message.textContent = '';
     scoreDisplay.textContent = `Pontuação: ${score}`;
-    livesDisplay.textContent = `Vidas: ${lives} ❤️`;
+    livesDisplay.textContent = `Vidas: ${lives}`;
 }
 
+// Evento para enviar a resposta
 submitButton.addEventListener('click', () => {
-    let answer = normalizarTexto(answerInput.value.trim());
-    
-    // Adicionar respostas corretas no modo 'historical'
-    let correctAnswers;
-    if (gameMode === 'countries') {
-        correctAnswers = [normalizarTexto(countries[currentIndex].name)];
-    } else {
-        // Para figuras históricas, agora aceitamos respostas alternativas
-        correctAnswers = [normalizarTexto(historicalFigures[currentIndex].name)];
-        
-        // Se houver respostas alternativas, adicione-as
-        if (historicalFigures[currentIndex].answers) {
-            correctAnswers.push(...historicalFigures[currentIndex].answers.map(normalizarTexto));
-        }
-    }
+    checkAnswer(answerInput.value.trim());
+});
 
-    if (correctAnswers.includes(answer)) {
+// Função para checar a resposta
+function checkAnswer(answer) {
+    let correctAnswer = '';
+    if (gameMode === 'countries') {
+        correctAnswer = countries[currentIndex].name;
+    } else {
+        correctAnswer = historicalFigures[currentIndex].name;
+    }
+    
+    if (normalizarTexto(answer) === normalizarTexto(correctAnswer)) {
         score++;
-        message.textContent = "Correto!";
-        scoreDisplay.textContent = `Pontuação: ${score}`;
-        proceedButton.style.display = 'block';
-        answerInput.disabled = true;
-        submitButton.disabled = true;
+        message.textContent = 'Resposta correta!';
     } else {
         lives--;
-        message.textContent = `Incorreto! A resposta correta era ${correctAnswers[0].replace(/(?:^|\s)\S/g, letra => letra.toUpperCase())}.`;
-        livesDisplay.textContent = `Vidas: ${lives} ❤️`;
-        answerInput.disabled = true;
-        submitButton.disabled = true;
+        message.textContent = `Resposta errada! A resposta correta era: ${correctAnswer}.`;
+    }
 
-        if (lives <= 0) {
-            endGame("Game Over! Você perdeu todas as vidas.");
+    updateUI();
+
+    if (lives === 0) {
+        endGame();
+    } else {
+        currentIndex++;
+        if ((gameMode === 'countries' && currentIndex >= countries.length) || 
+            (gameMode === 'historical' && currentIndex >= historicalFigures.length)) {
+            endGame();
         } else {
-            proceedButton.style.display = 'block';
+            loadNext();
         }
     }
-});
+}
 
-proceedButton.addEventListener('click', () => {
-    currentIndex++;
-    if ((gameMode === 'countries' && currentIndex < countries.length) || (gameMode === 'historical' && currentIndex < historicalFigures.length)) {
-        loadNext();
-    } else {
-        endGame("Parabéns! Você completou o jogo.");
-    }
-});
+// Função para atualizar a UI após uma resposta
+function updateUI() {
+    scoreDisplay.textContent = `Pontuação: ${score}`;
+    livesDisplay.textContent = `Vidas: ${lives}`;
+}
 
-let ranking = []; // Array para armazenar o ranking
-
-function endGame(messageText) {
-    message.textContent = messageText;
-
-    // Adicionar o jogador ao ranking
+// Função para encerrar o jogo
+function endGame() {
+    message.textContent = `Fim de jogo! Sua pontuação final é: ${score}.`;
+    document.getElementById('game').style.display = 'none';
+    document.getElementById('end').style.display = 'block';
     ranking.push({ name: playerName, score: score });
-
-    // Exibir o ranking
     showRanking();
-
-    restartButton.style.display = 'block';
-    proceedButton.style.display = 'none';
-    answerInput.disabled = true;
-    submitButton.disabled = true;
-    showRankingButton.style.display = 'block'; // Exibe o botão de ranking ao final do jogo
 }
 
+// Função para exibir o ranking
 function showRanking() {
-    rankingList.innerHTML = ''; // Limpa a lista atual
-
-    // Ordenar o ranking por pontuação
-    ranking.sort((a, b) => b.score - a.score);
-
-    // Criar uma lista de classificação
-    ranking.forEach((entry) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${entry.name}: ${entry.score}`;
-        rankingList.appendChild(listItem);
+    rankingList.innerHTML = '';
+    ranking.sort((a, b) => b.score - a.score).forEach(player => {
+        const li = document.createElement('li');
+        li.textContent = `${player.name}: ${player.score}`;
+        rankingList.appendChild(li);
     });
-
-    rankingDiv.style.display = 'block'; // Certifique-se de que o ranking é exibido
+    rankingDiv.style.display = 'block';
 }
 
+// Evento para reiniciar o jogo
+restartButton.addEventListener('click', () => {
+    rankingDiv.style.display = 'none';
+    document.getElementById('end').style.display = 'none';
+    document.getElementById('game').style.display = 'block';
+    score = 0;
+    lives = 5;
+    currentIndex = 0;
+    loadNext();
+});
+
+// Evento para voltar ao jogo
 backToGameButton.addEventListener('click', () => {
     rankingDiv.style.display = 'none';
-    resetGameUI(); // Certificando-se de que o UI do jogo é resetado antes de voltar
-    loadNext(); // Carregar o próximo item após voltar do ranking
+    document.getElementById('end').style.display = 'none';
+    document.getElementById('game').style.display = 'block';
+    loadNext();
+});
+
+// Evento para mostrar o ranking
+showRankingButton.addEventListener('click', () => {
+    rankingDiv.style.display = 'block';
+    document.getElementById('game').style.display = 'none';
 });
