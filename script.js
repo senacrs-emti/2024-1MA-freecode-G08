@@ -42,6 +42,30 @@ const startButton = document.getElementById('start');
 const playerNameInput = document.getElementById('player-name');
 const menu = document.getElementById('menu');
 
+// Função para ativar o modo de jogo e alterar o background
+function ativarModoDeJogo(modo) {
+    const body = document.body;
+
+    // Remove classes de background de outros modos, se houver
+    body.classList.remove('modo-countries-bg', 'modo-historical-bg');
+
+    // Adiciona a classe de background com base no modo de jogo selecionado
+    if (modo === 'countries') {
+        body.classList.add('modo-countries-bg');
+        // Aqui, você pode adicionar outras configurações específicas para o modo 'countries'
+    } else if (modo === 'historical') {
+        body.classList.add('modo-historical-bg');
+        // Aqui, você pode adicionar outras configurações específicas para o modo 'historical'
+    }
+
+    // Lógica adicional para iniciar o jogo no modo selecionado
+}
+
+// Exemplo de uso, chamando a função ao clicar no botão de modo
+document.getElementById('modo-countries').addEventListener('click', () => ativarModoDeJogo('countries'));
+document.getElementById('modo-historical').addEventListener('click', () => ativarModoDeJogo('historical'));
+
+
 modeCountriesButton.addEventListener('click', () => {
     gameMode = 'countries';
     startButton.style.display = 'block';
@@ -128,11 +152,11 @@ function updateUI() {
     livesDisplay.textContent = `Vidas: ${lives}`;
 }
 
+// Evento para enviar a resposta
 submitButton.addEventListener('click', () => {
-    const answer = answerInput.value.trim();
-    if (answer) {
-        checkAnswer(answer);
-    }
+    // Desativa o botão de envio para evitar cliques repetidos
+    submitButton.disabled = true;
+    checkAnswer(answerInput.value.trim());
 });
 
 function endGame() {
