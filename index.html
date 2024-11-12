@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Jogo de Silhuetas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Menu Inicial -->
     <div class="container" id="menu">
         <h1>ESCOLHA UM MODO DE JOGO</h1>
         <input type="text" id="player-name" placeholder="Digite seu nome">
@@ -18,6 +19,7 @@
         <button id="show-ranking">Mostrar Ranking</button> 
     </div>    
 
+    <!-- Jogo -->
     <div id="game" style="display: none;">
         <h2 id="message"></h2>
         <img id="country-silhouette" style="display: none;">
@@ -33,11 +35,15 @@
         <div id="lives">Vidas: 5</div>
     </div>
 
+    <!-- Ranking -->
     <div id="ranking" style="display: none;">
         <h2>Ranking</h2>
         <ul id="ranking-list"></ul>
         <button id="back-to-game">Voltar ao Menu</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
+
+</html>    

@@ -1,7 +1,9 @@
 /* Fundo padrão do body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: blueviolet;
+    background-repeat: no-repeat;
+    background-size: 100%;
     text-align: center;
     height: 570px;
 }
@@ -19,7 +21,6 @@ body.modo-historical-bg {
     background-size: cover;
     background-position: center;
 }
-
 
 .container {
     margin: 50px auto;
@@ -86,7 +87,7 @@ h1, h2 {
 }
 
 #country-silhouette, #historical-figure {
-    width: 80%; 
+    width: 80%;
     max-width: 400px;
     height: auto;
     display: block;
@@ -121,12 +122,12 @@ button {
     background-color: greenyellow;
 }
 
-#show-ranking {
-    background-color: lightcoral;
+#restart {
+    background-color: red;
 }
 
-#restart {
-    background-color: lightseagreen;
+#show-ranking {
+    background-color: lightcoral;
 }
 
 #score {
@@ -151,4 +152,8 @@ button {
     text-align: center;
     color: red;
     list-style-type: none;
+}
+
+h1 {
+    color: white;
 }

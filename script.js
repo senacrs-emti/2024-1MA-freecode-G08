@@ -2,8 +2,14 @@ const countries = [
     { name: "Brasil", silhouette: "https://th.bing.com/th/id/OIP.2kLWjnxqROfkhvMLjzfHaAAAAA?rs=1&pid=ImgDetMain" },
     { name: "Argentina", silhouette: "https://img.freepik.com/premium-vector/argentina-map-silhouette-isolated-white-background_650065-142.jpg?w=2000" },
     { name: "Canadá", silhouette: "https://th.bing.com/th/id/OIP.fTcNIpjkAPU0sictIM7v0wHaHa?w=800&h=800&rs=1&pid=ImgDetMain" },
+    { name: "Chile", silhouette: "https://th.bing.com/th/id/OIP.yk3K9wHthdYR3bnKLdCBggAAAA?rs=1&pid=ImgDetMain" },
     { name: "França", silhouette: "https://img.freepik.com/vector-premium/mapa-francia-sobre-fondo-blanco-ilustracion-vectorial_511393-3014.jpg?w=2000" },
-    { name: "Finlândia", silhouette: "https://img.freepik.com/vetores-premium/mapa-da-finlandia-silhueta-negra-altamente-detalhada-isolada-no-fundo-branco_601298-14145.jpg" },
+    { name: "Alemanha", silhouette: "https://th.bing.com/th/id/OIP.bf3sLq5xomSCmGML6Zz2KQHaHa?rs=1&pid=ImgDetMain" },
+    { name: "Espanha", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSun9R_VHvHY90m7tld2ekEdMcbiAN4vB6fsw&s" },
+    { name: "Portugal", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsMI4TQnjfKduY0-bie86kc21BYCCGgdmdlA&s" },
+    { name: "Estados Unidos", silhouette: "https://th.bing.com/th/id/OIP.AiYnAT55u1LG-Pf9NJPukQHaHa?rs=1&pid=ImgDetMain" },
+    { name: "Australia", silhouette: "https://th.bing.com/th/id/R.9eb57b6510fe981b3c3749bb776e0f83?rik=fmJjcQa7t1afWA&riu=http%3a%2f%2fgetdrawings.com%2fimg%2faustralia-silhouette-5.jpg&ehk=V2wiNNduBH4kOdKLYY%2ftYe5mwiSGF7DDmPIliaXpWMY%3d&risl=&pid=ImgRaw&r=0" },
+    { name: "Nova Zelandia", silhouette: "https://th.bing.com/th/id/OIP.ua895AtzPavnU_1ELR7MfgHaIG?rs=1&pid=ImgDetMain" },
 ];
 
 const historicalFigures = [
@@ -20,21 +26,10 @@ const historicalFigures = [
 
 let currentIndex = 0;
 let score = 0;
-let lives = 5;
+let lives = 3;
 let gameMode = 'countries';
 let playerName = '';
 const ranking = [];
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-function normalizarTexto(texto) {
-    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-}
 
 const countrySilhouette = document.getElementById('country-silhouette');
 const historicalFigure = document.getElementById('historical-figure');
@@ -48,8 +43,20 @@ const modeHistoricalButton = document.getElementById('modo-historical');
 const startButton = document.getElementById('start');
 const playerNameInput = document.getElementById('player-name');
 const menu = document.getElementById('menu');
+const proceedButton = document.getElementById('proceed');
+const restartButton = document.getElementById('restart');
 
-// Função para ativar o modo de jogo e alterar o background
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function normalizarTexto(texto) {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 function ativarModoDeJogo(modo) {
     const body = document.body;
 
@@ -59,18 +66,10 @@ function ativarModoDeJogo(modo) {
     // Adiciona a classe de background com base no modo de jogo selecionado
     if (modo === 'countries') {
         body.classList.add('modo-countries-bg');
-        // Aqui, você pode adicionar outras configurações específicas para o modo 'countries'
     } else if (modo === 'historical') {
         body.classList.add('modo-historical-bg');
-        // Aqui, você pode adicionar outras configurações específicas para o modo 'historical'
     }
-
-    // Lógica adicional para iniciar o jogo no modo selecionado
 }
-
-// Exemplo de uso, chamando a função ao clicar no botão de modo
-document.getElementById('modo-countries').addEventListener('click', () => ativarModoDeJogo('countries'));
-document.getElementById('modo-historical').addEventListener('click', () => ativarModoDeJogo('historical'));
 
 modeCountriesButton.addEventListener('click', () => {
     gameMode = 'countries';
@@ -110,64 +109,71 @@ function loadNext() {
     }
 }
 
-function resetGameUI() {
-    answerInput.value = '';
-    message.textContent = '';
-    message.style.color = ''; // Reseta a cor do texto
-    scoreDisplay.textContent = `Pontuação: ${score}`;
-    livesDisplay.textContent = `Vidas: ${lives}`;
-}
-
-function checkAnswer(answer) {
+submitButton.addEventListener('click', () => {
+    let playerAnswer = normalizarTexto(answerInput.value.trim());
     let correctAnswer = '';
+
     if (gameMode === 'countries') {
-        correctAnswer = countries[currentIndex].name;
+        correctAnswer = normalizarTexto(countries[currentIndex].name);
     } else {
-        correctAnswer = historicalFigures[currentIndex].name;
+        correctAnswer = normalizarTexto(historicalFigures[currentIndex].name);
     }
 
-    if (normalizarTexto(answer) === normalizarTexto(correctAnswer)) {
+    if (playerAnswer === correctAnswer) {
         score++;
-        message.textContent = 'Resposta correta!';
-        message.style.color = 'green'; // Texto em verde para resposta correta
+        message.textContent = "Resposta correta!";
     } else {
         lives--;
-        message.textContent = `Resposta errada! A resposta correta era: ${correctAnswer}.`;
-        message.style.color = 'red'; // Texto em vermelho para resposta errada
+        message.textContent = `Resposta errada! Você tem ${lives} vidas restantes.`;
     }
 
-    updateUI();
-
-    setTimeout(() => {
-        if (lives === 0) {
-            endGame();
-        } else {
-            currentIndex++;
-            if ((gameMode === 'countries' && currentIndex >= countries.length) || 
-                (gameMode === 'historical' && currentIndex >= historicalFigures.length)) {
-                endGame();
-            } else {
-                loadNext();
-            }
-        }
-    }, 2000); // Tempo em milissegundos (2 segundos)
-}
-
-function updateUI() {
     scoreDisplay.textContent = `Pontuação: ${score}`;
     livesDisplay.textContent = `Vidas: ${lives}`;
-}
 
-// Evento para enviar a resposta
-submitButton.addEventListener('click', () => {
-    // Desativa o botão de envio para evitar cliques repetidos
-    submitButton.disabled = true;
-    checkAnswer(answerInput.value.trim());
+    currentIndex++;
+
+    if (lives <= 0 || currentIndex >= (gameMode === 'countries' ? countries.length : historicalFigures.length)) {
+        finishGame();
+    } else {
+        loadNext();
+    }
 });
 
-function endGame() {
-    message.textContent = `Fim de jogo! Sua pontuação foi de ${score}.`;
-    answerInput.disabled = true;
-    submitButton.disabled = true;
+function resetGameUI() {
+    message.textContent = '';
+    answerInput.value = '';
 }
 
+function finishGame() {
+    message.textContent = `Fim de Jogo! ${playerName}, sua pontuação foi ${score}.`;
+    ranking.push({ name: playerName, score: score });
+    ranking.sort((a, b) => b.score - a.score); // Ordena pela pontuação
+
+    // Mostra o ranking
+    let rankingList = ranking.map(entry => `${entry.name}: ${entry.score}`).join('<br>');
+    document.getElementById('ranking').innerHTML = rankingList;
+    restartButton.style.display = 'block';
+}
+
+restartButton.addEventListener('click', () => {
+    lives = 3;
+    score = 0;
+    currentIndex = 0;
+    ranking.length = 0; // Limpa o ranking
+    menu.style.display = 'block';
+    document.getElementById('game').style.display = 'none';
+});
+
+proceedButton.addEventListener('click', () => {
+    lives = 3;
+    score = 0;
+    currentIndex = 0;
+    ranking.length = 0; // Limpa o ranking
+    shuffleArray(countries);
+    shuffleArray(historicalFigures);
+    loadNext();
+    message.textContent = '';
+    document.getElementById('game').style.display = 'block';
+    document.getElementById('ranking').innerHTML = '';
+    restartButton.style.display = 'none';
+});
