@@ -26,7 +26,7 @@ const historicalFigures = [
 
 let currentIndex = 0;
 let score = 0;
-let lives = 3;
+let lives = 3;  // Iniciar com 3 vidas
 let gameMode = 'countries';
 let playerName = '';
 const ranking = [];
@@ -45,6 +45,11 @@ const playerNameInput = document.getElementById('player-name');
 const menu = document.getElementById('menu');
 const proceedButton = document.getElementById('proceed');
 const restartButton = document.getElementById('restart');
+
+// Função para exibir as vidas com emoji de coração
+function updateLivesDisplay() {
+    livesDisplay.textContent = `Vidas: ${'❤️'.repeat(lives)}`;
+}
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -107,6 +112,8 @@ function loadNext() {
         historicalFigure.style.display = 'block';
         countrySilhouette.style.display = 'none';
     }
+    updateLivesDisplay();
+    proceedButton.style.display = 'none';  // Garante que o botão de "Próxima" esteja oculto
 }
 
 submitButton.addEventListener('click', () => {
@@ -122,17 +129,23 @@ submitButton.addEventListener('click', () => {
     if (playerAnswer === correctAnswer) {
         score++;
         message.textContent = "Resposta correta!";
+        proceedButton.style.display = 'block';  // Exibe o botão de "Próxima"
     } else {
         lives--;
+        updateLivesDisplay();
         message.textContent = `Resposta errada! Você tem ${lives} vidas restantes.`;
+        if (lives <= 0) {
+            finishGame();  // Chama a função de fim de jogo se as vidas acabaram
+        } else {
+            proceedButton.style.display = 'none'; // Esconde o botão de "Próxima" se errar
+            restartButton.style.display = 'block';  // Exibe o botão de "Tentar novamente"
+        }
     }
 
     scoreDisplay.textContent = `Pontuação: ${score}`;
-    livesDisplay.textContent = `Vidas: ${lives}`;
-
     currentIndex++;
 
-    if (lives <= 0 || currentIndex >= (gameMode === 'countries' ? countries.length : historicalFigures.length)) {
+    if (currentIndex >= (gameMode === 'countries' ? countries.length : historicalFigures.length)) {
         finishGame();
     } else {
         loadNext();
@@ -142,6 +155,8 @@ submitButton.addEventListener('click', () => {
 function resetGameUI() {
     message.textContent = '';
     answerInput.value = '';
+    proceedButton.style.display = 'none';  // Garante que o botão de "Próxima" esteja oculto
+    restartButton.style.display = 'none';  // Garante que o botão de "Tentar novamente" esteja oculto
 }
 
 function finishGame() {
@@ -152,28 +167,20 @@ function finishGame() {
     // Mostra o ranking
     let rankingList = ranking.map(entry => `${entry.name}: ${entry.score}`).join('<br>');
     document.getElementById('ranking').innerHTML = rankingList;
-    restartButton.style.display = 'block';
+    restartButton.style.display = 'block'; // Exibe o botão de reiniciar
 }
 
 restartButton.addEventListener('click', () => {
-    lives = 3;
+    lives = 3;  // Reinicia as vidas para 3
     score = 0;
     currentIndex = 0;
-    ranking.length = 0; // Limpa o ranking
     menu.style.display = 'block';
     document.getElementById('game').style.display = 'none';
 });
 
 proceedButton.addEventListener('click', () => {
-    lives = 3;
-    score = 0;
-    currentIndex = 0;
-    ranking.length = 0; // Limpa o ranking
-    shuffleArray(countries);
-    shuffleArray(historicalFigures);
+    currentIndex++;
     loadNext();
-    message.textContent = '';
-    document.getElementById('game').style.display = 'block';
-    document.getElementById('ranking').innerHTML = '';
-    restartButton.style.display = 'none';
+    message.textContent = '';  // Limpa a mensagem ao prosseguir para a próxima figura
+    restartButton.style.display = 'none';  // Garante que o botão de reiniciar esteja oculto ao prosseguir
 });
