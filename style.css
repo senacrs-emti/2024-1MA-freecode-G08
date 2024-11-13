@@ -44,10 +44,25 @@ button {
     background-color: greenyellow;
 }
 
-#restart {
-    background-color: red;
+#show-ranking {
+    background-color: lightseagreen;
 }
 
-#score{
-    margin:10px;
+#restart {
+    background-color: lightseagreen;
+}
+
+#score, #lives {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.ranking {
+    text-align: center;
+}
+
+#ranking-list {
+    text-align: center;
+    color: red;
+    list-style-type: none;
 }
