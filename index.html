@@ -8,29 +8,29 @@
 </head>
 <body>
     <div class="container" id="menu">
-        <h1>Descubra o país pela sua silhueta</h1>
+        <h1>Jogo de Conhecimentos Históricos e Geográficos</h1>
         <input type="text" id="player-name" placeholder="Digite seu nome">
         <button id="start" style="display: none;">Iniciar Jogo</button>
-        <button id="mode-countries">Silhuetas dos Países</button>
-        <button id="mode-historical">Personalidades Históricas</button>
+        <button id="mode-countries"><h3>Silhuetas dos Países</h3></button>
+        <button id="mode-historical"><h3>Personalidades Históricas</h3></button>
         <button id="show-ranking">Mostrar Ranking</button>
     </div>    
+    
+    <div id="ranking" style="display: none;">
+        <h2>Ranking</h2>
+        <ul id="ranking-list"></ul>
+        <button id="clear-ranking">Limpar Ranking</button>
+    </div>
 
     <div id="game" style="display: none;">
         <h2 id="message"></h2>
-        <img id="country-silhouette" style="display: none;" alt="Silhueta do país">
+        <img id="silhouette" src="" alt="Imagem do Jogo">
         <input type="text" id="answer" placeholder="Sua resposta">
         <button id="submit">Enviar Resposta</button>
         <button id="proceed" style="display: none;">Próxima</button>
         <button id="restart" style="display: none;">Reiniciar</button>
         <div id="score">Pontuação: 0</div>
         <div id="lives">Vidas: 5 ❤️</div>
-    </div>
-
-    <div id="ranking" style="display: none;">
-        <h2>Ranking</h2>
-        <ul id="ranking-list"></ul>
-        <button id="clear-ranking">Limpar Ranking</button>
     </div>
 
     <script src="script.js"></script>
