@@ -1,7 +1,6 @@
 const countries = [
     { name: "Brasil", silhouette: "https://th.bing.com/th/id/OIP.2kLWjnxqROfkhvMLjzfHaAAAAA?rs=1&pid=ImgDetMain" },
-    { name: "Argentina", silhouette: "https://www.worldatlas.com/r/w1200-h701-c1200x701/upload/75/9d/7e/shutterstock-766730110.jpg" },
-    // adicionar outros países aqui...
+    { name: "Argentina", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_ArH-fOSwULajLfV83R7qEwhQC8dvQqMM5A&s" },
 ];
 
 const historicalFigures = [
@@ -33,12 +32,22 @@ const messageDisplay = document.getElementById('message');
 const silhouetteImage = document.getElementById('silhouette');
 
 document.getElementById('mode-countries').addEventListener('click', () => {
+    playerName = document.getElementById('player-name').value.trim();
+    if (!playerName) {
+        alert("Por favor, digite seu nome antes de começar.");
+        return;
+    }
     gameMode = 'countries';
     currentIndex = 0;
     startGame();
 });
 
 document.getElementById('mode-historical').addEventListener('click', () => {
+    playerName = document.getElementById('player-name').value.trim();
+    if (!playerName) {
+        alert("Por favor, digite seu nome antes de começar.");
+        return;
+    }
     gameMode = 'historical';
     currentIndex = 0;
     startGame();
