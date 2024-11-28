@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descubra o país pela sua silhueta</title>
+    <title>Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container" id="menu">
-        <h1>Descubra o país pela sua silhueta</h1>
+        <h1>Quiz Geografia e História</h1>
         <input type="text" id="player-name" placeholder="Digite seu nome">
         <div class="button-container" id="mode-container">
             <button id="mode-countries">
-                <h3>Silhuetas dos Países</h3>
+                <h2>Silhuetas dos Países</h2>
             </button>
             <button id="mode-historical">
-                <h3>Personalidades Históricas</h3>
+                <h2>Personalidades Históricas</h2>
             </button>
+            <div id="ranking" style="display: none;">
+                <h3>Ranking</h3>
+                <ul id="ranking-list"></ul>
+                <button id="clear-ranking">Limpar Ranking</button>
+            </div>
         </div>
-        <!-- Botão de Ranking agora está abaixo dos modos de jogo -->
-        <button id="show-ranking">Mostrar Ranking</button>
+        <button id="show-ranking">Ranking</button>
     </div>
 
     <div id="game" style="display: none;">
@@ -31,14 +35,12 @@
         <button id="restart" style="display: none;">Reiniciar</button>
         <div id="score">Pontuação: 0</div>
         <div id="lives">Vidas: 5 ❤️</div>
-    </div>
- 
-    <div id="ranking" style="display: none;">
-        <h2>Ranking</h2>
-        <ul id="ranking-list"></ul>
-        <button id="clear-ranking">Limpar Ranking</button>
-    </div>
- 
+        
+        <!-- Barra de Carregamento -->
+        <div id="loading-bar-container">
+            <div id="loading-bar"></div>
+        </div>
+    </div> 
     <script src="script.js"></script>
 </body>
 </html>
