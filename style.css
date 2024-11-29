@@ -1,8 +1,12 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     text-align: center;
-    max-height: 800px;
+    max-height: 720px;
     margin: 0; /* Remover margens extras */
 }
 
@@ -18,9 +22,9 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 80%;
     max-width: 600px;
+    max-height: 720;
     margin: 0 auto;
     box-sizing: border-box; /* Para garantir que padding não afete o tamanho */
-    min-height: 600px; /* Ajuste para um tamanho mínimo adequado */
 }
 
 /* Contêiner para os modos de jogo (países e personalidades) */
@@ -38,6 +42,7 @@ body {
     background-repeat: no-repeat;
     border-radius: 10px;
     transition: transform 0.3s, opacity 0.3s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,10 +79,10 @@ h3 {
 img {
     width: 300px;
     height: 300px;
-    object-fit: cover;
+    object-fit: fill;
     display: block;
     margin: 0 auto;
-    border: 2px solid black;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 input {
@@ -85,6 +90,7 @@ input {
     margin-top: 20px;
     width: 80%;
     border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 button {
@@ -108,6 +114,7 @@ button:disabled {
 #show-ranking {
     background-color: lightseagreen;
     margin-top: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 #restart {
@@ -135,12 +142,34 @@ button:disabled {
 #ranking-list li {
     text-align: center;
     margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px; /* Adiciona borda arredondada */
+    color: white; /* Texto branco para todos os rankings */
+    background-color: lightpink;
+    font-weight: bold; /* Destacar os nomes e scores */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#ranking-list li:nth-child(1) {
+    background-color: gold; /* Dourado para o primeiro lugar */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#ranking-list li:nth-child(2) {
+    background-color: silver; /* Prata para o segundo lugar */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#ranking-list li:nth-child(3) {
+    background-color: #cd7f32; /* Bronze para o terceiro lugar */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 #clear-ranking {
     background-color: red;
     color: white;
-    margin-top: 10px;
+    margin-top: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilo da barra de carregamento */
@@ -160,3 +189,8 @@ button:disabled {
     border-radius: 5px;
 }
 
+#message {
+    margin: 20px;
+    padding: 0;
+    display: block; /* Inicialmente oculto para não ocupar espaço */
+}

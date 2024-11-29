@@ -1,34 +1,64 @@
 const countries = [
     // Américas
     { name: "Brasil", silhouette: "https://th.bing.com/th/id/OIP.2kLWjnxqROfkhvMLjzfHaAAAAA?rs=1&pid=ImgDetMain" },
-    { name: "Argentina", silhouette: "https://img.freepik.com/premium-vector/argentina-map-silhouette-isolated-white-background_650065-142.jpg?w=2000" },
-    { name: "Canadá", silhouette: "https://th.bing.com/th/id/OIP.fTcNIpjkAPU0sictIM7v0wHaHa?w=800&h=800&rs=1&pid=ImgDetMain" },
+    { name: "Argentina", silhouette: "https://img.freepik.com/vetores-premium/silhueta-do-mapa-da-argentina-isolada-no-fundo-branco_650065-142.jpg" },
+    { name: "Canadá", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScuJjsUEy5ixgOjemXlxtaLhKHESsT6W517A&s" },
     { name: "Chile", silhouette: "https://th.bing.com/th/id/OIP.yk3K9wHthdYR3bnKLdCBggAAAA?rs=1&pid=ImgDetMain" },
-    { name: "Uruguai", silhouette: "https://th.bing.com/th/id/OIP.96T6_a4AZTzO8J3cVJCd0gHaH5?rs=1&pid=ImgDetMain" },
+    { name: "Uruguai", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSskBU6m2AmtvFKYACtIJxgdk561E-sLhK5Og&s" },
     { name: "Estados Unidos", silhouette: "https://th.bing.com/th/id/OIP.AiYnAT55u1LG-Pf9NJPukQHaHa?rs=1&pid=ImgDetMain" },
 
     // Europa
-    { name: "França", silhouette: "https://img.freepik.com/vector-premium/mapa-francia-sobre-fondo-blanco-ilustracion-vectorial_511393-3014.jpg?w=2000" },
-    { name: "Alemanha", silhouette: "https://th.bing.com/th/id/OIP.bf3sLq5xomSCmGML6Zz2KQHaHa?rs=1&pid=ImgDetMain" },
+    { name: "França", silhouette: "https://img.freepik.com/vetores-premium/silhueta-negra-do-pais-da-franca-mapa-ilustracao-vetorial_628809-946.jpg" },
+    { name: "Alemanha", silhouette: "https://img.freepik.com/premium-vector/map-germany-icon-simple-illustration-map-germany-vector-icon-web_96318-25219.jpg" },
     { name: "Espanha", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSun9R_VHvHY90m7tld2ekEdMcbiAN4vB6fsw&s" },
-    { name: "Portugal", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsMI4TQnjfKduY0-bie86kc21BYCCGgdmdlA&s" },
-    { name: "Suécia", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLllQQLEJFDS9LwAmz6RHMD_jLuC3_tYCUYw&s" },
-    { name: "Noruega", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7KIAjoifCcLhJQZGNMMbHn0DNo8ujITECA&s" },
+    { name: "Portugal", silhouette: "https://static.vecteezy.com/ti/vetor-gratis/p1/5091159-portugal-blank-vector-map-isolated-on-white-background-high-detailed-black-silhuette-map-of-portugal-gratis-vetor.jpg" },
+    { name: "Suécia", silhouette: "https://cdn.pixabay.com/photo/2012/04/15/20/03/sweden-35134_640.png" },
+    { name: "Noruega", silhouette: "https://img.freepik.com/vetores-premium/mapa-da-noruega-silhueta-preta-altamente-detalhada-isolada-no-fundo-branco_601298-14147.jpg" },
 
     // Ásia
     { name: "Japão", silhouette: "https://static.vecteezy.com/ti/vetor-gratis/p1/3127394-japan-map-silhouette-vector-illustration-sketch-vetor.jpg" },
     { name: "Índia", silhouette: "https://img.freepik.com/vetores-premium/mapa-da-silhueta-da-india-isolado-no-fundo-branco_650065-132.jpg" },
 
     // Oceania
-    { name: "Austrália", silhouette: "https://th.bing.com/th/id/R.9eb57b6510fe981b3c3749bb776e0f83?rik=fmJjcQa7t1afWA&riu=http%3a%2f%2fgetdrawings.com%2fimg%2faustralia-silhouette-5.jpg&ehk=V2wiNNduBH4kOdKLYY%2ftYe5mwiSGF7DDmPIliaXpWMY%3d&risl=&pid=ImgRaw&r=0" },
-    { name: "Nova Zelândia", silhouette: "https://th.bing.com/th/id/OIP.ua895AtzPavnU_1ELR7MfgHaIG?rs=1&pid=ImgDetMain" }
+    { name: "Austrália", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6IEcrh1UfgCPbZY3chkNeybYk6Ryx1uihhQ&s" },
+    { name: "Nova Zelândia", silhouette: "https://th.bing.com/th/id/OIP.ua895AtzPavnU_1ELR7MfgHaIG?rs=1&pid=ImgDetMain" },
 ];
 
 const historicalFigures = [
+    //Brasil
+    { name: "Getúlio Vargas", silhouette: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Getulio_Vargas_%281930%29.jpg/640px-Getulio_Vargas_%281930%29.jpg"},
+    { name: "Dom Pedro 2", silhouette: "https://1.bp.blogspot.com/-jpzXpmn8l38/X8i7LbsvlwI/AAAAAAAA530/nmp3K_JjjqArn2UDrAEx1jOISbpAswZGQCLcBGAsYHQ/w464-h585/D.%2BPEDRO%2BII.png" },
+    { name: "Santos Dumont", silhouette: "https://s.ebiografia.com/assets/img/authors/sa/nt/santos-dumont-l.jpg" },
+    
+    //Europa
+
+    //Alemanha
     { name: "Albert Einstein", silhouette: "https://th.bing.com/th/id/OIP.BTRUoKaTtPJKmMvvdt_c-AHaEc?w=281&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" },
-    { name: "Joana d'Arc", silhouette: "https://lereaprender.com.br/wp-content/uploads/2020/08/quem-foi-joana-darc.jpg" },
-    { name: "Dom Pedro II", silhouette: "https://1.bp.blogspot.com/-jpzXpmn8l38/X8i7LbsvlwI/AAAAAAAA530/nmp3K_JjjqArn2UDrAEx1jOISbpAswZGQCLcBGAsYHQ/w464-h585/D.%2BPEDRO%2BII.png" },
-    { name: "Santos Dumont", silhouette: "https://s.ebiografia.com/assets/img/authors/sa/nt/santos-dumont-l.jpg" }
+    { name: "Joseph Goebbels", silhouette: "https://s2-g1.glbimg.com/7QWiSy6S_aRoOC2nPeyRD3qYaT8=/0x0:572x800/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/c/H/srlDVZS1687BbCFCuAGQ/goebbels.jpg"},
+    { name: "Karl Marx", silhouette: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Karl_Marx_001.jpg/800px-Karl_Marx_001.jpg"},
+    
+    //Itália
+    { name: "Benito Mussolini", silhouette: "https://c.files.bbci.co.uk/ED6E/production/_106028706_benitomussolini1.jpg"},
+    { name: "Júlio César", silhouette: "https://www.walksinsiderome.com/wp-content/uploads/2022/09/Julius-Caesar-1024x576-1-960x576.jpg"},
+
+    //França
+    { name: "Napoleão Bonaparte", silhouette: "https://network.grupoabril.com.br/wp-content/uploads/sites/4/2016/12/446px-delarochenapoleon.jpg?quality=70&w=720&crop=1"},
+
+    //Polônia
+    { name: "Marie Curie", silhouette: "https://s3.amazonaws.com/libapps/accounts/66324/images/Mariecurie.jpg"},
+
+    //Reino Unido
+    { name: "Winston Churchill", silhouette: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Sir_Winston_Churchill_-_19086236948.jpg/800px-Sir_Winston_Churchill_-_19086236948.jpg"},
+
+    //Russia
+    { name: "Josef Stalin", silhouette: "https://upload.wikimedia.org/wikipedia/commons/3/3c/StalinCropped1943%28b%29.jpg"},
+
+    //Ásia
+    { name: "Mao Tsé Tung", silhouette: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Mao_Zedong_1959.jpg"},
+    { name: "Hirohito", silhouette: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF1TgYXCgSfTn7Gsxq3KSrYQ-ZxLGMxNhHpA&s"},
+
+    //USA
+    { name: "Abraham Lincoln", silhouette: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/800px-Abraham_Lincoln_O-77_matte_collodion_print.jpg"},
 ];
 
 let currentIndex = 0;
@@ -126,20 +156,31 @@ function checkAnswer() {
     if (answer === correctAnswer) {
         score++;
         messageDisplay.textContent = "Resposta correta!";
-        loadingBar.style.backgroundColor = "green";  // Resposta correta com barra verde
+        loadingBar.style.backgroundColor = "green"; // Resposta correta com barra verde
     } else {
         lives--;
         messageDisplay.textContent = "Resposta errada!";
-        loadingBar.style.backgroundColor = "red";  // Resposta errada com barra vermelha
+        loadingBar.style.backgroundColor = "red"; // Resposta errada com barra vermelha
     }
 
     scoreDisplay.textContent = `Pontuação: ${score}`;
     livesDisplay.textContent = `Vidas: ${lives} ❤️`;
 
-    let width = 0;
-    const loadingInterval = setInterval(() => {
-        if (width >= 100) {
-            clearInterval(loadingInterval);
+    // Define o tempo total da animação da barra em milissegundos
+    const totalAnimationTime = 1500;
+    let startTime = null;
+
+    // Função para animar a barra de carregamento
+    function animateLoadingBar(timestamp) {
+        if (!startTime) startTime = timestamp; // Inicializa o tempo de início
+        const elapsedTime = timestamp - startTime; // Tempo decorrido
+        const progress = Math.min((elapsedTime / totalAnimationTime) * 100, 100); // Calcula o progresso (0 a 100%)
+
+        loadingBar.style.width = progress + "%"; // Atualiza a largura da barra
+
+        if (progress < 100) {
+            requestAnimationFrame(animateLoadingBar); // Continua a animação
+        } else {
             setTimeout(() => {
                 currentIndex++;
                 if (lives <= 0 || currentIndex >= (gameMode === 'countries' ? countries.length : historicalFigures.length)) {
@@ -148,37 +189,66 @@ function checkAnswer() {
                     loadNext(); // Carrega a próxima pergunta
                 }
             }, 300); // Aguarda 300ms antes de carregar a próxima pergunta
-        } else {
-            width++;
-            loadingBar.style.width = width + '%';
         }
-    }, 30); // Barra aumenta de 1% a cada 30ms
+    }
+
+    loadingBarContainer.style.display = "block"; // Exibe a barra de carregamento
+    requestAnimationFrame(animateLoadingBar); // Inicia a animação da barra
 
     setTimeout(() => {
         loadingBarContainer.style.display = "none"; // Oculta a barra de carregamento após 3 segundos
-    }, 3000); // A barra desaparece após 3 segundos
+    }, totalAnimationTime); // A barra desaparece após o tempo total de animação
 }
 
 function finishGame() {
-    const finalMessage = lives > 0 ? 'Parabéns!' : 'Game Over!';
+    // Define a mensagem final dependendo do estado das vidas
+    const finalMessage = lives > 0 ? 'Parabéns! Você venceu!' : 'Game Over! Você perdeu!';
+    
+    // Exibe a mensagem final com a pontuação
     messageDisplay.textContent = `${finalMessage} Seu score final foi: ${score}`;
+    
+    // Torna o elemento de mensagem visível (caso ele esteja oculto)
+    messageDisplay.style.display = 'block';
+    
+    // Exibe a tela de fim de jogo e esconde a tela de jogo
     document.getElementById('game').style.display = 'none';
     document.getElementById('menu').style.display = 'block';
+    
+    // Aguarda um breve intervalo para garantir que a mensagem seja visível
+    setTimeout(() => {
+        // Salva a pontuação e o nome do jogador no ranking
+        const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+        ranking.push({ name: playerName, score });
+        ranking.sort((a, b) => b.score - a.score);  // Ordena o ranking pelo maior score
+        
+        // Limita o ranking a 10 jogadores
+        if (ranking.length > 10) ranking.pop();
+        
+        // Salva o novo ranking no localStorage
+        localStorage.setItem('ranking', JSON.stringify(ranking));
 
-    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
-    ranking.push({ name: playerName, score });
-    ranking.sort((a, b) => b.score - a.score);
-    if (ranking.length > 10) ranking.pop();
-    localStorage.setItem('ranking', JSON.stringify(ranking));
-    updateRanking();
+        // Atualiza a exibição do ranking
+        updateRanking();
+    }, 500);  // Aguarda meio segundo antes de atualizar o ranking e mostrar o menu novamente
 }
 
 function updateRanking() {
-    rankingList.innerHTML = '';
+    rankingList.innerHTML = ''; // Limpa a lista de ranking
+
     const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
-    ranking.forEach((entry, index) => {
+    ranking.slice(0, 10).forEach((entry, index) => { // Exibe apenas os 10 primeiros
         const li = document.createElement('li');
         li.textContent = `${index + 1}. ${entry.name}: ${entry.score}`;
+
+        // Definir cor de fundo para os três primeiros lugares
+        if (index === 0) {
+            li.style.backgroundColor = 'gold'; // Primeiro lugar (Dourado)
+        } else if (index === 1) {
+            li.style.backgroundColor = 'silver'; // Segundo lugar (Prata)
+        } else if (index === 2) {
+            li.style.backgroundColor = '#cd7f32'; // Terceiro lugar (Bronze)
+        }
+
         rankingList.appendChild(li);
     });
 }
